@@ -1,0 +1,18 @@
+# Environments
+.venv/
+venv/
+env/
+
+# API Keys and Secrets
+.env
+
+# Database and Index files
+chroma_db/
+*.pkl
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# OS Files
+.DS_Store
