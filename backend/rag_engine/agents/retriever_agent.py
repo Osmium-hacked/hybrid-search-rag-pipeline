@@ -8,6 +8,7 @@ agent rather than a straight-line function call.
 
 from typing import List
 
+from rag_engine.index_store import SearchIndex
 from rag_engine.retrieval import hybrid_search
 
 
@@ -16,15 +17,15 @@ class RetrieverAgent:
         self.min_results = min_results
         self.top_k = top_k
 
-    def run(self, query: str) -> List:
-        docs = hybrid_search(query, top_k=self.top_k)
+    def run(self, query: str, index: SearchIndex) -> List:
+        docs = hybrid_search(index, query, top_k=self.top_k)
 
         if len(docs) >= self.min_results:
             return docs
 
         # Weak retrieval — reformulate once and retry.
         reformulated = self._reformulate_query(query)
-        retry_docs = hybrid_search(reformulated, top_k=self.top_k)
+        retry_docs = hybrid_search(index, reformulated, top_k=self.top_k)
 
         # Keep whichever attempt returned more (or any) results.
         return retry_docs if len(retry_docs) > len(docs) else docs
