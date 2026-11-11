@@ -1,0 +1,10 @@
+.env*
+.venv/
+assets/
+chroma_db/
+docs/
+*.pkl
+**/__pycache__/
+frontend/node_modules/
+frontend/dist/
+backend/index/workspaces/
